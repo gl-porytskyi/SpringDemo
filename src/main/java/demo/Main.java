@@ -1,17 +1,26 @@
 package demo;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 
+@SpringBootApplication
+@EnableCaching
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
-        annotationConfigApplicationContext.registerShutdownHook();
+        SpringApplication.run(Main.class, args);
+    }
 
-        InfoService infoService = annotationConfigApplicationContext.getBean(InfoService.class);
-        System.out.println("=======================================");
-        System.out.println(infoService.getInfo());
-        System.out.println("=======================================");
-        System.out.println(infoService.getInfo());
-        System.out.println("=======================================");
+    @Bean
+    ApplicationRunner applicationRunner(InfoService infoService) {
+        return args -> {
+            System.out.println("=======================================");
+            System.out.println(infoService.getInfo());
+            System.out.println("=======================================");
+            System.out.println(infoService.getInfo());
+            System.out.println("=======================================");
+        };
     }
 }

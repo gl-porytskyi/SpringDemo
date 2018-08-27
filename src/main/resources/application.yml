@@ -1,0 +1,6 @@
+weatherService:
+  temp: 100500
+  url: gismeteo
+
+spring.redis:
+  host: 172.20.42.133
